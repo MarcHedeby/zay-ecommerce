@@ -2,14 +2,16 @@
 
 ## Setup
 
-* Clone the project
-* Install dependencies: `npm install`
-* Set environment variables on the project to match the database
-    * Check `./package.json`
-    * Check Environment variables further down
-* Run the project
-    * In development mode: `npm run dev`
-    * In production mode: `npm start`
+**Prerequisites**
+
+* A database connection
+
+1. Clone the project
+2. Install dependencies with command `npm install`
+3. Change database connection in `config/database.js`
+4. Migrate and seed database by running `npm run db:reset`
+5. Now run the project by running the command `npm start`
+6. Check that the server is running by visitting `/status` and check that products are loaded by visitting `/shop`
 
 ## Commands
 
@@ -38,10 +40,6 @@ npm run db:migrate
 ```sh
 npm run db:seed
 ```
-
-## Configuration
-
-
 
 ## Environment Variables
 

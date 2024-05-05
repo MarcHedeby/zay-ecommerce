@@ -31,7 +31,7 @@ module.exports = {
         sizes: 'S,M,L,XL',
         sku: faker.number.int({ min: 10000000, max: 99999999 }),
         stock: faker.number.int({ min: 10, max: 1000 }),
-        thumbnail: faker.image.urlLoremFlickr({ height: 524, width: 524, category: 'fashion' }),
+        thumbnail: faker.image.urlPicsumPhotos({ height: 524, width: 524, category: 'fashion' }),
         createdAt: new Date(),
         updatedAt: new Date(),
       });

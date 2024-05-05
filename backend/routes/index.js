@@ -5,6 +5,8 @@ const { Product } = require('../models');
 
 const router = express.Router();
 
+console.log(process.env);
+
 module.exports = () => {
   router.get('/', (req, res) => res.send('test'));
   router.get('/status', (req, res) => res.sendStatus(200));

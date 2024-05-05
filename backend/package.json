@@ -5,9 +5,6 @@
   "main": "index.js",
   "scripts": {
     "dev": "nodemon ./",
-    "db:start": "docker run --rm -d -p 3306:3306 -e MARIADB_ROOT_PASSWORD=root -e MARIADB_DATABASE=zay_dev --name zay_db mariadb:latest",
-    "db:stop": "docker stop zay_db",
-    "db:restart": "npm run db:stop && npm run db:start",
     "db:migrate": "npx sequelize-cli db:migrate --debug",
     "db:reset": "npx sequelize-cli db:migrate:undo:all && npm run db:migrate && npm run db:seed",
     "db:seed": "npx sequelize-cli db:seed:all --debug",
