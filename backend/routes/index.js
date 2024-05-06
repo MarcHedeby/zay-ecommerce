@@ -5,11 +5,10 @@ const { Product } = require('../models');
 
 const router = express.Router();
 
-console.log(process.env);
-
 module.exports = () => {
   router.get('/', (req, res) => res.send('test'));
   router.get('/status', (req, res) => res.sendStatus(200));
+  router.get('/host', (req, res) => res.send(process.env.HOSTNAME));
   router.get('/tea', (req, res) => res.sendStatus(418));
   router.get('/products', async (req, res) => {
     console.log(req.params);

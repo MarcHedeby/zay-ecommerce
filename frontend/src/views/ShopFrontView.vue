@@ -12,6 +12,9 @@ fetch(`${api}/products`)
   .then((response) => response.json())
   .then((response) => {
     products.value = response;
+  })
+  .catch((error) => {
+    console.error('Error:', error);
   });
 </script>
 
