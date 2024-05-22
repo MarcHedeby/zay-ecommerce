@@ -1,12 +1,20 @@
+# Use the official Node.js image as the base image
+FROM node:lts-alpine
 
-FROM node:lts-alpine as build-stage
+# Set the working directory
 WORKDIR /app
-COPY package*.json ./
-RUN npm install
-COPY . .
-RUN npm run build
 
-FROM nginx:stable-alpine as production-stage
-COPY --from=build-stage /app/dist /usr/share/nginx/html
+# Copy package.json and package-lock.json
+COPY package*.json ./
+
+# Install dependencies
+RUN npm install
+
+# Copy the rest of the application code
+COPY . .
+
+# Expose the port the app runs on
 EXPOSE 3000
-CMD ["nginx", "-g", "daemon off;"]
+
+# Start the application
+CMD ["npm", "start"]
