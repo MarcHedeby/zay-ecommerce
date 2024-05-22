@@ -18,7 +18,7 @@
 ### Run in production mode
 
 All commands can be found `./package.json`
-
+s
 ```sh
 npm start
 ```
