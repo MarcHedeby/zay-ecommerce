@@ -1,49 +1,41 @@
-# Containerizing an Application and Using Docker Swarm
-
-## Table of Contents
-1. [Introduction](#introduction)
-2. [Prerequisites](#prerequisites)
-3. [Containerizing an Application](#containerizing-an-application)
-    1. [Create a Dockerfile](#create-a-dockerfile)
-    2. [Build the Docker Image](#build-the-docker-image)
-    3. [Run the Docker Container](#run-the-docker-container)
-4. [Using Docker Swarm](#using-docker-swarm)
-    1. [Initialize Docker Swarm](#initialize-docker-swarm)
-    2. [Create a Docker Service](#create-a-docker-service)
-    3. [Scale the Service](#scale-the-service)
-    4. [Update the Service](#update-the-service)
-    5. [Remove the Service](#remove-the-service)
-5. [Conclusion](#conclusion)
-
-## Introduction
-This README provides a step-by-step guide to containerize an application using Docker and manage it using Docker Swarm. Containerization ensures that your application runs in a consistent environment across different development and production setups.
-
-## Prerequisites
+# Prerequisites
 - Docker installed on your system
-- Basic knowledge of Docker commands and Dockerfile syntax
+- Vm Virtual box installed on system
 
-## Containerizing an Application
+# 1. Create a Dockerfile
+A Dockerfile is a script that contains instructions to build a Docker image. for both frontend and backend
+To test if it works you can 
+## backend
+1. open a terminale 
+2. Goto docker file in my case it is 
+3. cd C:\Users\marc\Desktop\vszay\zay-ecommerce\backend
+4. docker build -t zay-back .
+5. docker run -d -p 3000 --name zay-back zay-back
 
-### 1. Create a Dockerfile
-A Dockerfile is a script that contains instructions to build a Docker image. Below is an example Dockerfile for a simple Node.js application.
+## frontend 
+1. cd C:\Users\marc\Desktop\vszay\zay-ecommerce\frontend
+2. docker build -t zay-front .
+3. docker run -d -p 80 --name zay-front zay-front
 
-# Use the official Node.js image as the base image
-FROM node:lts-alpine
+and you should now be able to enter the site on frontend ip and port if database is setup
 
-# Set the working directory
-WORKDIR /app
+# 2. Create a Docker-Compose 
+to create both images and a volume for the service
 
-# Copy package.json and package-lock.json
-COPY package*.json ./
+1. open terminal
+2. cd C:\Users\marc\Desktop\vszay\zay-ecommerce
+3. run docker-compose up -d
 
-# Install dependencies
-RUN npm install
+and you should now be able to enter the site on frontend ip and port
 
-# Copy the rest of the application code
-COPY . .
+# Setup Docker swarm 
+1. open terminale
+2. docker swarm init - Creates a manager node and should give you a join command
+3. cd C:\Users\marc\Desktop\vszay\zay-ecommerce
+4. docker stack deploy -c docker-compose.yml zaystack
+5. docker service create --replicas 1 --name zayservices zaystack
+6. setup a VM with docker 
+7. open the vm and a terminale on the vm
+8. add a worker with the join command -->  docker swarm join --token <token> <manager-ip>:<port>
+9. now when somebody enter the manager <manager-ip>:<port> it round robin through the worker nodes
 
-# Expose the port the app runs on
-EXPOSE 3000
-
-# Start the application
-CMD ["npm", "start"]
